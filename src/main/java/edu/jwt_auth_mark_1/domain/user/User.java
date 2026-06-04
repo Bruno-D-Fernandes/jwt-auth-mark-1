@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.management.relation.Role;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class User implements UserDetails {
     @Column(name = "role_user")
     private Roles role;
 
-    public User() {
+    public User(String username, String encryptedPassword, Role role) {
     }
 
     public User(Roles role, String password, String name, int id) {
@@ -34,6 +35,12 @@ public class User implements UserDetails {
         this.password = password;
         this.name = name;
         this.id = id;
+    }
+
+    public User(String name, String password, Roles role) {
+        this.name = name;
+        this.password = password;
+        this.role = role;
     }
 
     // ------
