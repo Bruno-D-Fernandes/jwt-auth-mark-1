@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-
 public class AuthorizarionService implements UserDetailsService {
 
     private UserDAO userDAO;
@@ -20,6 +19,6 @@ public class AuthorizarionService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userDAO.findByName(username);
+        return userDAO.findByUsername(username);
     }
 }

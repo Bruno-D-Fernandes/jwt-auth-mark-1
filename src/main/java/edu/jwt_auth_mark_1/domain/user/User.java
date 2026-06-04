@@ -19,7 +19,7 @@ public class User implements UserDetails {
     private int id;
 
     @Column(name = "name_user")
-    private String name;
+    private String username;
 
     @Column(name = "password_user")
     private String password;
@@ -27,18 +27,15 @@ public class User implements UserDetails {
     @Column(name = "role_user")
     private UserRole role;
 
-    public User(String username, String encryptedPassword, Role role) {
-    }
-
-    public User(UserRole role, String password, String name, int id) {
+    public User(UserRole role, String password, String username, int id) {
         this.role = role;
         this.password = password;
-        this.name = name;
+        this.username = username;
         this.id = id;
     }
 
-    public User(String name, String password, UserRole role) {
-        this.name = name;
+    public User(String userName, String password, UserRole role) {
+        this.username = userName;
         this.password = password;
         this.role = role;
     }
@@ -57,7 +54,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.name;
+        return this.username;
     }
 
     @Override
@@ -90,12 +87,12 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public String getPassword() {

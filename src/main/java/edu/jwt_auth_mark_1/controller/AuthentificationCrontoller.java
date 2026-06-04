@@ -34,15 +34,16 @@ public class AuthentificationCrontoller {
 
     @PostMapping("/login")               // @Valid Annotation ver o que é e como funciona
     public ResponseEntity login(@RequestBody AuthentificationDTO data){
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
-        var auth = this.manager.authenticate(usernamePassword);
-
+        var token = new UsernamePasswordAuthenticationToken(data.username(), data.password());
+        System.out.println("aqui");
+        var auth = this.manager.authenticate(token);
+        System.out.println("a2");
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterDTO registerDTO){
-         if(this.userDAO.findByName(registerDTO.username()) != null) return ResponseEntity.badRequest().build();
+         if(this.userDAO.findByUsername(registerDTO.username()) != null) return ResponseEntity.badRequest().build();
 
          String encryptedPassword = new BCryptPasswordEncoder().encode(registerDTO.password());
          User user = new User(registerDTO.username(), encryptedPassword, registerDTO.role());
