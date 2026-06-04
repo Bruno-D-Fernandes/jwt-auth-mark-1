@@ -25,19 +25,19 @@ public class User implements UserDetails {
     private String password;
 
     @Column(name = "role_user")
-    private Roles role;
+    private UserRole role;
 
     public User(String username, String encryptedPassword, Role role) {
     }
 
-    public User(Roles role, String password, String name, int id) {
+    public User(UserRole role, String password, String name, int id) {
         this.role = role;
         this.password = password;
         this.name = name;
         this.id = id;
     }
 
-    public User(String name, String password, Roles role) {
+    public User(String name, String password, UserRole role) {
         this.name = name;
         this.password = password;
         this.role = role;
@@ -47,7 +47,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == Roles.ADMIN) return
+        if(this.role == UserRole.ADMIN) return
                 List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
                         new SimpleGrantedAuthority(("ROLE_USER")));
 
@@ -106,11 +106,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Roles getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 }

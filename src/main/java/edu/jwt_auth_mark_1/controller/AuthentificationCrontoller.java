@@ -3,7 +3,6 @@ package edu.jwt_auth_mark_1.controller;
 
 import edu.jwt_auth_mark_1.domain.user.AuthentificationDTO;
 import edu.jwt_auth_mark_1.domain.user.RegisterDTO;
-import edu.jwt_auth_mark_1.domain.user.Roles;
 import edu.jwt_auth_mark_1.domain.user.User;
 import edu.jwt_auth_mark_1.repositories.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.management.relation.Role;
 
 @RestController
 @RequestMapping("auth")

@@ -1,12 +1,12 @@
 package edu.jwt_auth_mark_1.domain.user;
 
-public enum Roles {
+public enum UserRole {
     ADMIN("admin"),
     USER("user");
 
     private String role;
 
-    Roles(String role) {
+    UserRole(String role) {
         this.role = role;
     }
 
