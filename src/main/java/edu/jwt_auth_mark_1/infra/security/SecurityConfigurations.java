@@ -1,6 +1,7 @@
 package edu.jwt_auth_mark_1.infra.security;
 
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,14 +23,14 @@ public class SecurityConfigurations {
 
     @Bean
     // pode ter somente uma filterChain?
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity){
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
                 .csrf(crsf -> crsf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers( HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers( HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers( HttpMethod.GET, "/products").hasRole("admin")
+                        .requestMatchers( HttpMethod.GET, "/products").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .build();

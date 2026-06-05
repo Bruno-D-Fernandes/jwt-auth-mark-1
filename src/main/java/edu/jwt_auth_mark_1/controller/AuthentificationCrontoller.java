@@ -22,24 +22,21 @@ public class AuthentificationCrontoller {
      private AuthenticationManager manager;
      private UserDAO userDAO;
 
-     @Autowired
+    @Autowired
     public AuthentificationCrontoller(AuthenticationManager manager, UserDAO userDAO) {
         this.manager = manager;
-    }
-
-    @Autowired
-    public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
+
+
 
     @PostMapping("/login")               // @Valid Annotation ver o que é e como funciona
     public ResponseEntity login(@RequestBody AuthentificationDTO data){
         var token = new UsernamePasswordAuthenticationToken(data.username(), data.password());
-        System.out.println("aqui");
         var auth = this.manager.authenticate(token);
-        System.out.println("a2");
         return ResponseEntity.ok().build();
     }
+
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterDTO registerDTO){
@@ -47,6 +44,7 @@ public class AuthentificationCrontoller {
 
          String encryptedPassword = new BCryptPasswordEncoder().encode(registerDTO.password());
          User user = new User(registerDTO.username(), encryptedPassword, registerDTO.role());
+
 
          userDAO.save(user);
          return ResponseEntity.ok().build();
