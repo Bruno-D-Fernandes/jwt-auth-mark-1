@@ -2,8 +2,10 @@ package edu.jwt_auth_mark_1.controller;
 
 
 import edu.jwt_auth_mark_1.domain.user.AuthentificationDTO;
+import edu.jwt_auth_mark_1.domain.user.LoginResponseDTO;
 import edu.jwt_auth_mark_1.domain.user.RegisterDTO;
 import edu.jwt_auth_mark_1.domain.user.User;
+import edu.jwt_auth_mark_1.infra.security.TokenService;
 import edu.jwt_auth_mark_1.repositories.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +23,13 @@ public class AuthentificationCrontoller {
 
      private AuthenticationManager manager;
      private UserDAO userDAO;
+     private TokenService tokenService;
 
-    @Autowired
-    public AuthentificationCrontoller(AuthenticationManager manager, UserDAO userDAO) {
+     @Autowired
+    public AuthentificationCrontoller(AuthenticationManager manager, UserDAO userDAO, TokenService tokenService) {
         this.manager = manager;
         this.userDAO = userDAO;
+        this.tokenService = tokenService;
     }
 
 
@@ -34,7 +38,10 @@ public class AuthentificationCrontoller {
     public ResponseEntity login(@RequestBody AuthentificationDTO data){
         var token = new UsernamePasswordAuthenticationToken(data.username(), data.password());
         var auth = this.manager.authenticate(token);
-        return ResponseEntity.ok().build();
+
+        var token1 = tokenService.generateToken( (User) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token1));
     }
 
 
